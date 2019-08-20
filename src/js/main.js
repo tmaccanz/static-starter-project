@@ -5,6 +5,8 @@
 
 import Swup from 'swup';
 import moduleItem from './modules/module-item';
+import moduleHomePage from './modules/pages/home-page-module';
+import modulePageItem from './modules/pages/page-item';
 
 // Module Calls //
 
@@ -15,9 +17,14 @@ function init() {
         moduleItem();
 	}
 	
-	if (document.querySelector("#home-modules")) {
+	if (document.querySelector("#home-module")) {
 
+        moduleHomePage();
+    }
+    
+    if (document.querySelector("#page-item-module")) {
 
+        modulePageItem();
 	}
 }
 
