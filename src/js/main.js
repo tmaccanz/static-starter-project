@@ -4,6 +4,7 @@
 // Imports //
 
 import Swup from 'swup';
+import moduleItem from './modules/module-item';
 
 // Module Calls //
 
@@ -11,7 +12,7 @@ function init() {
 
 	if (document.querySelector(".global-modules")) {
 
-
+        moduleItem();
 	}
 	
 	if (document.querySelector("#home-modules")) {

@@ -1,0 +1,47 @@
+
+<!-- Base Head -->
+
+<!doctype html>
+<html lang="{{ $.Site.Language.Lang }}">
+
+	<head>
+
+		<!-- Head Info -->
+
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+		<base href="{{ if getenv "CONTEXT" }}{{ cond (eq "production" (getenv "CONTEXT")) (getenv "URL") (getenv "DEPLOY_PRIME_URL") }}{{ else }}{{ $.Site.BaseURL }}{{ end }}">
+		<title>{{ $.Site.Title }}</title>
+		<meta name="description" content="Website for Refresh Beauty Therapy Papamoa" />
+		<meta name="author" content="Todd McAlinden" />
+
+		<!-- Favicon -->
+
+		<link rel="apple-touch-icon" sizes="180x180" href="/images/">
+		<link rel="icon" type="image/png" sizes="32x32" href="/images/">
+		<link rel="icon" type="image/png" sizes="16x16" href="/images/">
+		<link rel="manifest" href="/images/">
+		<link rel="mask-icon" href="/images/" color="">
+		<meta name="msapplication-TileColor" content="">
+		<meta name="theme-color" content="">
+
+		<!-- Style Sheet -->
+		
+		<link rel="stylesheet" href="css/main.css"/>
+
+	</head>
+	  
+  	<body>
+
+    	<div id="swup" class="page-transition-animation">
+
+			{{ block "main" . }}{{end}}
+			
+		</div>
+		
+		<script src="/js/main.js"></script>
+	
+  	</body>
+
+</html>
