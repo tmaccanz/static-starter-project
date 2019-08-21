@@ -1,7 +1,7 @@
 baseurl = "/"
 languageCode = "en-nz"
 languageLang = "en"
-
+title = "Static Starter Project"
 
 # RSS, categories and tags disabled for an easy start
 # See configuration options for more details: 
