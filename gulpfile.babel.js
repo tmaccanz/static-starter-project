@@ -1,6 +1,3 @@
-
-/* Pipeline */
-
 import gulp from "gulp";
 import {spawn} from "child_process";
 import hugoBin from "hugo-bin";
@@ -25,30 +22,25 @@ import cache from 'gulp-cache';
 
 const browserSync = BrowserSync.create();
 
-// Hugo arguments //
-
+// Hugo arguments
 const hugoArgsDefault = ["-d", "../dist", "-s", "site", "-v"];
 const hugoArgsPreview = ["--buildDrafts", "--buildFuture"];
 
-// Development tasks //
-
+// Development tasks
 gulp.task("hugo", (cb) => buildSite(cb));
 gulp.task("hugo-preview", (cb) => buildSite(cb, hugoArgsPreview));
 
-// Build/production tasks //
-
+// Build/production tasks
 gulp.task("build", ["scss", "js", "fonts", "min", "clear"], (cb) => buildSite(cb, [], "production"));
 gulp.task("build-preview", ["scss", "js", "fonts", "min"], (cb) => buildSite(cb, hugoArgsPreview, "production"));
 
-// Compile SCSS //
-
+// Compile SCSS
 gulp.task("scss", () => (
-
-	gulp.src("./src/scss/*.scss")
+  gulp.src("./src/scss/*.scss")
     .pipe(sass({
-		outputStyle:  "nested",
-		precision: 10,
-		includePaths: ["node_modules"],
+      outputStyle:  "nested",
+      precision: 10,
+      includePaths: ["node_modules"],
     }))
     .pipe(postcss([ autoprefixer() ]))
     .pipe(cssNano())
@@ -56,94 +48,79 @@ gulp.task("scss", () => (
     .pipe(browserSync.stream())
 ));
 
-// Compile Javascript //
-
+// Compile Javascript
 gulp.task("js", (cb) => {
+  const myConfig = Object.assign({}, webpackConfig);
 
-	const myConfig = Object.assign({}, webpackConfig);
-
-  	webpack(myConfig, (err, stats) => {
-
-    	if (err) throw new gutil.PluginError("webpack", err);
-    	gutil.log("[webpack]", stats.toString({
-
-      		colors: true,
-      		progress: true
+  webpack(myConfig, (err, stats) => {
+    if (err) throw new gutil.PluginError("webpack", err);
+    gutil.log("[webpack]", stats.toString({
+      colors: true,
+      progress: true
     }));
     browserSync.reload();
     cb();
   });
 });
 
-// Image minification //
+// Image minification
 
 gulp.task('min', () =>
-
 	gulp.src('site/static/images/*')
 		.pipe(cache(imagemin(
-      	[imageminPngquant(), imageminJPG()],
-      	{verbose: true}
+      [imageminPngquant(), imageminJPG()],
+      {verbose: true}
     )))
-	.pipe(gulp.dest('dist/images'))
+		.pipe(gulp.dest('dist/images'))
 );
 
 
-// Clean folders/files //
+//Clean folders/files
 
-gulp.task('clean', () => {
-
-  	return del('dist/images/*', {force:true});
+gulp.task('clean', function(){
+  return del('dist/images/*', {force:true});
 });
 
-// Move all fonts in a flattened directory //
-
+// Move all fonts in a flattened directory
 gulp.task('fonts', () => (
-
- 	gulp.src("./src/fonts/**/*")
+  gulp.src("./src/fonts/**/*")
     .pipe(flatten())
     .pipe(gulp.dest("./dist/fonts"))
     .pipe(browserSync.stream())
 ));
 
-// Development server with browsersync //
-
+// Development server with browsersync
 gulp.task("server", ["hugo", "scss", "js", "fonts", "clean", "min"], () => {
-  	browserSync.init({
-
-    	server: {
-
-      		baseDir: "./dist"
-    	}
-  	});
-	watch("./src/js/**/*.js", () => { gulp.start(["js"]) });
-	watch("./src/scss/**/*.scss", () => { gulp.start(["scss"]) });
-	watch("./src/fonts/**/*", () => { gulp.start(["fonts"]) });
-	watch("./site/**/*", () => { gulp.start(["hugo"]) });
+  browserSync.init({
+    server: {
+      baseDir: "./dist"
+    }
+  });
+  watch("./src/js/**/*.js", () => { gulp.start(["js"]) });
+  watch("./src/scss/**/*.scss", () => { gulp.start(["scss"]) });
+  watch("./src/fonts/**/*", () => { gulp.start(["fonts"]) });
+  watch("./site/**/*", () => { gulp.start(["hugo"]) });
 });
 
-
-// Run hugo and build the site //
-
+/**
+ * Run hugo and build the site
+ */
 function buildSite(cb, options, environment = "development") {
+  const args = options ? hugoArgsDefault.concat(options) : hugoArgsDefault;
 
-  	const args = options ? hugoArgsDefault.concat(options) : hugoArgsDefault;
-  	process.env.NODE_ENV = environment;
+  process.env.NODE_ENV = environment;
 
-	return spawn(hugoBin, args, {stdio: "inherit"}).on("close", (code) => {
-
-		if (code === 0) {
-
-			browserSync.reload();
-			cb();
-		} else {
-
-			browserSync.notify("Hugo build failed!");
-			cb("Hugo build failed");
-		}
-	});
+  return spawn(hugoBin, args, {stdio: "inherit"}).on("close", (code) => {
+    if (code === 0) {
+      browserSync.reload();
+      cb();
+    } else {
+      browserSync.notify("Hugo build failed :(");
+      cb("Hugo build failed");
+    }
+  });
 }
 
 gulp.task('clear', () =>
-
     cache.clearAll()
 );

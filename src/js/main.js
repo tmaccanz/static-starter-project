@@ -4,28 +4,28 @@
 // Imports //
 
 import Swup from 'swup';
-import moduleItem from './modules/module-item';
-import moduleHomePage from './modules/pages/home-page-module';
-import modulePageItem from './modules/pages/page-item';
+import moduleItem from './modules/module';
+import moduleHomePage from './modules/pages/home-page';
+import modulePage from './modules/pages/page';
 
 // Module Calls //
 
-function init() {
+function init(){
 
-	if (document.querySelector(".global-modules")) {
+	if (document.querySelector(".global-modules")){
 
-        moduleItem();
+		moduleItem();
 	}
 	
-	if (document.querySelector("#home-module")) {
+	if (document.querySelector(".home-module")){
 
-        moduleHomePage();
-    }
-    
-    if (document.querySelector("#page-item-module")) {
-
-        modulePageItem();
+		moduleHomePage();
 	}
+	
+	if (document.querySelector(".page-module")){
+
+		modulePage();
+    }
 }
 
 // Page Transition Config //
@@ -38,15 +38,16 @@ const swup = new Swup({
 	preload: true,
 	support: true,
 	disableIE: false,
-	elements: ["#swup"],
-	animationSelector: ".page-transition-animation",
+	elements: ['#swup'],
+	animationSelector: '.page-transition-animation',
 	animateScrollToAnchor: false,
 	animateScrollOnMobile: false,
-	doScrollingRightAway: true,
+	doScrollingRightAway: false,
 	scrollDuration: 0,
-  	LINK_SELECTOR: ".page-transition-target",
+  	LINK_SELECTOR: '.page-transition__target',
 });
 
 init();
 
-swup.on("contentReplaced", init);
+swup.on('contentReplaced', init);
+
