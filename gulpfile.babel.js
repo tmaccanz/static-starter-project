@@ -4,8 +4,6 @@ import hugoBin from "hugo-bin";
 import gutil from "gulp-util";
 import flatten from "gulp-flatten";
 import postcss from "gulp-postcss";
-import cssImport from "postcss-import";
-import cssnext from "postcss-cssnext";
 import BrowserSync from "browser-sync";
 import watch from "gulp-watch";
 import webpack from "webpack";
