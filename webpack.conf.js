@@ -45,7 +45,7 @@ export default {
 
 		path: path.join(__dirname, "dist/js/"),
 		publicPath: "/",
-		filename: "[name].js"
+		filename: "[name].min.js"
   	},
   	resolve: {
 

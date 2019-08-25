@@ -1,124 +1,183 @@
-import gulp from "gulp";
+
+/* Gulp Task Pipeline */
+
+// Imports //
+
 import {spawn} from "child_process";
 import hugoBin from "hugo-bin";
-import gutil from "gulp-util";
-import flatten from "gulp-flatten";
-import postcss from "gulp-postcss";
-import BrowserSync from "browser-sync";
-import watch from "gulp-watch";
+import gulp from "gulp";
 import webpack from "webpack";
-import webpackConfig from "./webpack.conf";
-import autoprefixer from "autoprefixer";
-import sass from "gulp-sass";
-import cssNano from "gulp-cssnano";
-import imagemin from "gulp-imagemin";
-import imageminJPG from "imagemin-jpeg-recompress"
-import imageminPngquant from "imagemin-pngquant";
+import webpackconfig from "./webpack.conf.js";
+import webpackstream from "webpack-stream";
 import del from "del";
-import cache from 'gulp-cache';
+import autoprefixer from "autoprefixer";
+import eslint from "gulp-eslint";
+import uglify from "gulp-uglify";
+import cssnano from "cssnano";
+import imagemin from "gulp-imagemin";
+import newer from "gulp-newer";
+import plumber from "gulp-plumber";
+import postcss from "gulp-postcss";
+import gzip from "gulp-gzip";
+import rename from "gulp-rename";
+import sass from "gulp-sass";
+const browsersync = require("browser-sync").create();
 
+// Hugo Arguments //
 
-const browserSync = BrowserSync.create();
-
-// Hugo arguments
 const hugoArgsDefault = ["-d", "../dist", "-s", "site", "-v"];
-const hugoArgsPreview = ["--buildDrafts", "--buildFuture"];
 
-// Development tasks
-gulp.task("hugo", (cb) => buildSite(cb));
-gulp.task("hugo-preview", (cb) => buildSite(cb, hugoArgsPreview));
+// Hugo //
 
-// Build/production tasks
-gulp.task("build", ["scss", "js", "fonts", "min", "clear"], (cb) => buildSite(cb, [], "production"));
-gulp.task("build-preview", ["scss", "js", "fonts", "min"], (cb) => buildSite(cb, hugoArgsPreview, "production"));
-
-// Compile SCSS
-gulp.task("scss", () => (
-  gulp.src("./src/scss/*.scss")
-    .pipe(sass({
-      outputStyle:  "nested",
-      precision: 10,
-      includePaths: ["node_modules"],
-    }))
-    .pipe(postcss([ autoprefixer() ]))
-    .pipe(cssNano())
-    .pipe(gulp.dest("./dist/css"))
-    .pipe(browserSync.stream())
-));
-
-// Compile Javascript
-gulp.task("js", (cb) => {
-  const myConfig = Object.assign({}, webpackConfig);
-
-  webpack(myConfig, (err, stats) => {
-    if (err) throw new gutil.PluginError("webpack", err);
-    gutil.log("[webpack]", stats.toString({
-      colors: true,
-      progress: true
-    }));
-    browserSync.reload();
-    cb();
-  });
-});
-
-// Image minification
-
-gulp.task('min', () =>
-	gulp.src('site/static/images/*')
-		.pipe(cache(imagemin(
-      [imageminPngquant(), imageminJPG()],
-      {verbose: true}
-    )))
-		.pipe(gulp.dest('dist/images'))
-);
-
-
-//Clean folders/files
-
-gulp.task('clean', function(){
-  return del('dist/images/*', {force:true});
-});
-
-// Move all fonts in a flattened directory
-gulp.task('fonts', () => (
-  gulp.src("./src/fonts/**/*")
-    .pipe(flatten())
-    .pipe(gulp.dest("./dist/fonts"))
-    .pipe(browserSync.stream())
-));
-
-// Development server with browsersync
-gulp.task("server", ["hugo", "scss", "js", "fonts", "clean", "min"], () => {
-  browserSync.init({
-    server: {
-      baseDir: "./dist"
-    }
-  });
-  watch("./src/js/**/*.js", () => { gulp.start(["js"]) });
-  watch("./src/scss/**/*.scss", () => { gulp.start(["scss"]) });
-  watch("./src/fonts/**/*", () => { gulp.start(["fonts"]) });
-  watch("./site/**/*", () => { gulp.start(["hugo"]) });
-});
-
-/**
- * Run hugo and build the site
- */
 function buildSite(cb, options, environment = "development") {
-  const args = options ? hugoArgsDefault.concat(options) : hugoArgsDefault;
 
-  process.env.NODE_ENV = environment;
-
-  return spawn(hugoBin, args, {stdio: "inherit"}).on("close", (code) => {
-    if (code === 0) {
-      browserSync.reload();
-      cb();
-    } else {
-      browserSync.notify("Hugo build failed :(");
-      cb("Hugo build failed");
-    }
-  });
+    const args = options ? hugoArgsDefault.concat(options) : hugoArgsDefault;
+    process.env.NODE_ENV = environment;
+    return spawn(hugoBin, args, {stdio: "inherit"});
 }
 
-gulp.task('clear', () =>
-    cache.clearAll()
-);
+// BrowserSync //
+
+function browserSync(done) {
+
+	browsersync.init({
+
+		server: {
+
+			baseDir: "./dist"
+		},
+		port: 3000
+	});
+	done();
+}
+
+// BrowserSync Reload //
+
+function browserSyncReload(done) {
+
+	browsersync.reload();
+	done();
+}
+
+// Clean Distribution Folder //
+
+function clean() {
+
+	return del(["./dist"]);
+}
+
+// Image Optimisation //
+
+function images() {
+	
+	return gulp
+		.src("./site/static/medias/**/*")
+		.pipe(newer("./dist/media"))
+		.pipe(
+			imagemin([
+				imagemin.gifsicle({ interlaced: true }),
+				imagemin.jpegtran({ progressive: true }),
+				imagemin.optipng({ optimizationLevel: 5 }),
+				imagemin.svgo({
+
+					plugins: [
+						{
+						removeViewBox: false,
+						collapseGroups: true
+						}
+					]
+				})
+			])
+		)
+		.pipe(gulp.dest("./dist/media"));
+}
+
+// Copy Fonts //
+
+function fonts() {
+
+	return gulp
+		.src("./src/fonts/*")
+		.pipe(plumber())
+		.pipe(gulp.dest("./dist/fonts"))
+		.pipe(browsersync.stream());
+}
+
+// Minify & Prefix SCSS //
+
+function scss() {
+
+	return gulp
+		.src("./src/scss/*.scss")
+		.pipe(plumber())
+		.pipe(sass({ outputStyle: "compressed" }))
+		.pipe(rename({ suffix: ".min" }))
+		.pipe(postcss([autoprefixer(), cssnano()]))
+		.pipe(gzip({skipGrowingFiles : true}))
+		.pipe(gulp.dest("./dist/css"))
+		.pipe(browsersync.stream());
+}
+
+// Script Linting //
+
+function scriptsLint() {
+
+	return gulp
+		.src(["./src/js/**/*", "./gulpfile.babel.js"])
+		.pipe(plumber())
+		.pipe(eslint())
+		.pipe(eslint.format())
+		.pipe(eslint.failAfterError());
+}
+
+// Concatenate, Compile & Minify Scripts //
+
+function scripts() {
+	
+	return (
+
+		gulp
+			.src(["./src/js/**/*"])
+			.pipe(plumber())
+			.pipe(webpackstream(webpackconfig, webpack))
+			.pipe(uglify())
+			.pipe(gzip({skipGrowingFiles : true}))
+			.pipe(gulp.dest("./dist/js"))
+			.pipe(browsersync.stream())
+	);
+}
+
+// Watch Files //
+
+function watchFiles() {
+
+	gulp.watch("./src/scss/**/*.scss", scss);
+	gulp.watch("./src/fonts/**/*", fonts);
+	gulp.watch("./src/js/**/*.js", gulp.series(scripts));
+	gulp.watch(
+		[
+			"./site/**/*"
+		],
+		gulp.series(buildSite, browserSyncReload)
+	);
+	gulp.watch("./site/static/media/**/*", images);
+}
+
+// Tasks //
+
+const lint = gulp.series(scriptsLint);
+const build = gulp.series(clean, gulp.parallel(fonts, scss, images, scripts, buildSite));
+const watch = gulp.parallel(watchFiles, browserSync);
+
+// Export Tasks //
+
+exports.images = images;
+exports.fonts = fonts;
+exports.scss = scss;
+exports.scripts = scripts;
+exports.buildSite = buildSite;
+exports.build = build;
+exports.watch = watch;
+exports.default = build;
+exports.clean = clean;
+exports.lint = lint;

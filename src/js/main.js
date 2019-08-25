@@ -3,10 +3,10 @@
 
 // Imports //
 
-import Swup from 'swup';
-import moduleItem from './modules/module';
-import moduleHomePage from './modules/pages/home-page';
-import modulePage from './modules/pages/page';
+import Swup from "swup";
+import moduleItem from "./modules/module";
+import moduleHomePage from "./modules/pages/home-page";
+import modulePage from "./modules/pages/page";
 
 // Module Calls //
 
@@ -35,19 +35,18 @@ const swup = new Swup({
 	cache: true,
 	preload: true,
 	scroll: true,
-	preload: true,
 	support: true,
 	disableIE: false,
-	elements: ['#swup'],
-	animationSelector: '.page-transition-animation',
+	elements: ["#swup"],
+	animationSelector: ".page-transition-animation",
 	animateScrollToAnchor: false,
 	animateScrollOnMobile: false,
 	doScrollingRightAway: false,
 	scrollDuration: 0,
-  	LINK_SELECTOR: '.page-transition__target',
+  	LINK_SELECTOR: ".page-transition__target",
 });
 
 init();
 
-swup.on('contentReplaced', init);
+swup.on("contentReplaced", init);
 
