@@ -1,7 +1,7 @@
 {
 		"name": "static-starter-project",
 		"version": "1.0.0",
-		"description": "Stater Project For Static Website Projects",
+		"description": "Starter Project For Static Website Projects",
 		"repository": {
 				"type": "git",
 				"url": "https://github.com/tmaccanz/static-starter-project"
