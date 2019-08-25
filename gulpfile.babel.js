@@ -18,7 +18,6 @@ import imagemin from "gulp-imagemin";
 import newer from "gulp-newer";
 import plumber from "gulp-plumber";
 import postcss from "gulp-postcss";
-import gzip from "gulp-gzip";
 import rename from "gulp-rename";
 import sass from "gulp-sass";
 const browsersync = require("browser-sync").create();
@@ -113,7 +112,6 @@ function scss() {
 		.pipe(sass({ outputStyle: "compressed" }))
 		.pipe(rename({ suffix: ".min" }))
 		.pipe(postcss([autoprefixer(), cssnano()]))
-		.pipe(gzip({skipGrowingFiles : true}))
 		.pipe(gulp.dest("./dist/css"))
 		.pipe(browsersync.stream());
 }
@@ -141,7 +139,6 @@ function scripts() {
 			.pipe(plumber())
 			.pipe(webpackstream(webpackconfig, webpack))
 			.pipe(uglify())
-			.pipe(gzip({skipGrowingFiles : true}))
 			.pipe(gulp.dest("./dist/js"))
 			.pipe(browsersync.stream())
 	);
