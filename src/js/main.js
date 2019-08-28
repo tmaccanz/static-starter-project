@@ -43,7 +43,7 @@ const swup = new Swup({
 	animateScrollOnMobile: false,
 	doScrollingRightAway: false,
 	scrollDuration: 0,
-  	LINK_SELECTOR: ".page-transition__target",
+  	LINK_SELECTOR: ".page-transition-target",
 });
 
 init();

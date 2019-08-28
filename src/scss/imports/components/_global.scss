@@ -144,11 +144,61 @@ $error-color: #FFFFFF;
 
 // Containers //
 
+@mixin flex-row-centre{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin flex-column-centre{
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
 // Buttons //
 
+.button{
+
+    width: auto;
+    height: auto;
+    padding: 1rem;
+    cursor: pointer;
+}
+
+.button:focus{
+
+    outline: 0;
+}
 
 // Icons //
 
+.icon{
+
+    width: 3rem;
+    height: auto;
+}
+
+.svg-icon-hover{
+
+    cursor: pointer;
+    transition: ease-in-out 0.3s;
+}
+
+svg:hover .svg-icon-hover{
+
+    fill: $primary-color-accent;
+}
+
+// Transition
+
+@mixin transition-ease{
+
+    transition: 0.3s ease all;
+}
 
 // Media //
+
