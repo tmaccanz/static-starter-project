@@ -1,0 +1,28 @@
+
+/* Transition Styling */
+
+// Element Transitions //
+
+@mixin transition-standard {
+
+    transition: 0.3s ease-in-out;
+}
+
+// Page Transition //
+
+#swup {
+
+    width: 100%;
+	height: 100%;
+}
+
+.page-transition-animation {
+
+    transition: 0.5s;
+    opacity: 1;
+}
+
+html.is-animating .page-transition-animation {
+
+    opacity: 0;
+}

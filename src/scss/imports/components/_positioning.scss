@@ -1,0 +1,67 @@
+
+/* Positioning */
+
+// Container Positioning //
+
+@mixin flex-row-center {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin flex-column-center {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin flex-row-center-start {
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+@mixin flex-column-center-start {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+@mixin flex-row-center-between {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@mixin flex-column-center-between {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+// Element Spacing //
+
+$extra-small-spacing: 0.5rem;
+$small-spacing: 1rem;
+$medium-spacing: 2rem;
+$large-spacing: 3rem;
+$section-spacing: 15vh;
+$between-section-spacing: 10vh;
+
+// Containers //
+
+.page-container {
+
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+}
