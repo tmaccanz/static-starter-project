@@ -12,7 +12,7 @@ import webpackstream from "webpack-stream";
 import del from "del";
 import autoprefixer from "autoprefixer";
 import eslint from "gulp-eslint";
-import uglify from "gulp-uglify";
+import terser from "gulp-terser";
 import cssnano from "cssnano";
 import imagemin from "gulp-imagemin";
 import newer from "gulp-newer";
@@ -138,7 +138,7 @@ function scripts() {
 			.src(["./src/js/**/*"])
 			.pipe(plumber())
 			.pipe(webpackstream(webpackconfig, webpack))
-			.pipe(uglify())
+			.pipe(terser())
 			.pipe(gulp.dest("./dist/js"))
 			.pipe(browsersync.stream())
 	);
