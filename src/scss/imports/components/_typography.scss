@@ -3,13 +3,19 @@
 
 // Font Sources //
 
-@font-face{
+@font-face {
 
 	font-family: "";
-	src: url("") format("OpenType");
+	src: url("") format("truetype");
 }
 
-@font-face{
+@font-face {
+
+	font-family: "";
+	src: url("") format("truetype");
+}
+
+@font-face {
 
 	font-family: "";
 	src: url("") format("truetype");
@@ -48,8 +54,8 @@
   	}
 }
 
-$min_width: 320px;
-$max_width: 2500px;
+$min_width: 300px;
+$max_width: 1980px;
 $min_font: 16px;
 $max_font: 22px;
 
@@ -65,63 +71,101 @@ html {
 
 h1 {  
 
-	$mod_2: 1.5;
-  	$mod_1: 1.6;    
+	$mod_2: 1.55;
+  	$mod_1: 1.65;    
   	font-size: $mod_1*$mod_1*$mod_1*$mod_1 *1rem; 
   	@include fluid-type($min_width, $max_width, $mod_1*$mod_1*$mod_1 *$min_font, $mod_2*$mod_2*$mod_2 *$min_font);
 
- 	@include query-1600 {
+ 	@include query-laptop-l {
 
-		$mod_2: 1.4;
-		$mod_1: 1.5;    
+		$mod_2: 1.5;
+		$mod_1: 1.6;    
 		font-size: $mod_1*$mod_1*$mod_1*$mod_1 *1rem; 
     	@include fluid-type($min_width, $max_width, $mod_1*$mod_1*$mod_1 *$min_font, $mod_2*$mod_2*$mod_2 *$min_font);
 	}
-	  
-  	@include query-1100 {
+  	@include query-laptop {
 
-    	$mod_2: 1.3;
-    	$mod_1: 1.4;    
+    	$mod_2: 1.45;
+    	$mod_1: 1.55;    
     	font-size: $mod_1*$mod_1*$mod_1*$mod_1 *1rem; 
     	@include fluid-type($min_width, $max_width, $mod_1*$mod_1*$mod_1 *$min_font, $mod_2*$mod_2*$mod_2 *$min_font);
-	  }
-	  
-  	@include query-500 {
+	}
+	@include query-tablet-l {
+
+    	$mod_2: 1.35;
+    	$mod_1: 1.45;    
+    	font-size: $mod_1*$mod_1*$mod_1*$mod_1 *1rem; 
+    	@include fluid-type($min_width, $max_width, $mod_1*$mod_1*$mod_1 *$min_font, $mod_2*$mod_2*$mod_2 *$min_font);
+	}
+  	@include query-tablet {
+
+    	$mod_2: 1.25;
+    	$mod_1: 1.35;    
+    	font-size: $mod_1*$mod_1*$mod_1*$mod_1 *1rem; 
+    	@include fluid-type($min_width, $max_width, $mod_1*$mod_1*$mod_1 *$min_font, $mod_2*$mod_2*$mod_2 *$min_font);
+	}
+	@include query-mobile-l {
 
     	$mod_2: 1.2;
     	$mod_1: 1.3;    
     	font-size: $mod_1*$mod_1*$mod_1*$mod_1 *1rem; 
     	@include fluid-type($min_width, $max_width, $mod_1*$mod_1*$mod_1 *$min_font, $mod_2*$mod_2*$mod_2 *$min_font);
-  	}
+	}
 }
 
 h2 {  
 
-  	$mod_2: 1.3;
-  	$mod_1: 1.4;
+  	$mod_2: 1.5;
+  	$mod_1: 1.6;
   	font-size: $mod_1*$mod_1*$mod_1 *1rem; 
   	@include fluid-type($min_width, $max_width, $mod_1*$mod_1*$mod_1 *$min_font, $mod_2*$mod_2*$mod_2 *$min_font);
 
-  	@include query-1600 {
+	@include query-desktop-s {
 
-    	$mod_2: 1.2;
-    	$mod_1: 1.3;
+		$mod_2: 1.4;
+		$mod_1: 1.5;
+		font-size: $mod_1*$mod_1*$mod_1 *1rem; 
+		@include fluid-type($min_width, $max_width, $mod_1*$mod_1*$mod_1 *$min_font, $mod_2*$mod_2*$mod_2 *$min_font);
+	}
+	@include query-laptop-l {
+
+    	$mod_2: 1.35;
+    	$mod_1: 1.45;
     	font-size: $mod_1*$mod_1*$mod_1 *1rem; 
     	@include fluid-type($min_width, $max_width, $mod_1*$mod_1*$mod_1 *$min_font, $mod_2*$mod_2*$mod_2 *$min_font);
 	}
-	  
-  	@include query-1100 {
+  	@include query-laptop {
 
-    	$mod_2: 1.1;
-    	$mod_1: 1.2;
+    	$mod_2: 1.25;
+    	$mod_1: 1.35;
     	font-size: $mod_1*$mod_1*$mod_1 *1rem; 
     	@include fluid-type($min_width, $max_width, $mod_1*$mod_1*$mod_1 *$min_font, $mod_2*$mod_2*$mod_2 *$min_font);
 	}
-	  
-  	@include query-500 {
+	@include query-tablet-l {
 
-		$mod_2: 1.0;
-		$mod_1: 1.1;
+		$mod_2: 1.25;
+		$mod_1: 1.35;
+		font-size: $mod_1*$mod_1*$mod_1 *1rem; 
+		@include fluid-type($min_width, $max_width, $mod_1*$mod_1*$mod_1 *$min_font, $mod_2*$mod_2*$mod_2 *$min_font);
+	}
+  	@include query-tablet {
+
+		$mod_2: 1.15;
+		$mod_1: 1.25;
+		font-size: $mod_1*$mod_1*$mod_1 *1rem; 
+		@include fluid-type($min_width, $max_width, $mod_1*$mod_1*$mod_1 *$min_font, $mod_2*$mod_2*$mod_2 *$min_font);
+	}
+	@include query-mobile-l {
+
+		$mod_2: 1.15;
+		$mod_1: 1.25;
+		font-size: $mod_1*$mod_1*$mod_1 *1rem; 
+		@include fluid-type($min_width, $max_width, $mod_1*$mod_1*$mod_1 *$min_font, $mod_2*$mod_2*$mod_2 *$min_font);
+	}
+	@include query-mobile-m {
+
+		$mod_2: 1.1;
+		$mod_1: 1.2;
 		font-size: $mod_1*$mod_1*$mod_1 *1rem; 
 		@include fluid-type($min_width, $max_width, $mod_1*$mod_1*$mod_1 *$min_font, $mod_2*$mod_2*$mod_2 *$min_font);
   	}
@@ -129,31 +173,57 @@ h2 {
 
 h3 { 
 
-	$mod_2: 1.3;
-	$mod_1: 1.4;
+	$mod_2: 1.25;
+	$mod_1: 1.35;
   	font-size: $mod_1*$mod_1 *1rem;
   	@include fluid-type($min_width, $max_width, $mod_1*$mod_1 *$min_font, $mod_2*$mod_2 *$min_font);
 
-	@include query-1600 {
+	@include query-desktop-s {
 
 		$mod_2: 1.2;
 		$mod_1: 1.3;
 		font-size: $mod_1*$mod_1 *1rem;
 		@include fluid-type($min_width, $max_width, $mod_1*$mod_1 *$min_font, $mod_2*$mod_2 *$min_font);
-	}
-
-	@include query-1100 {
+	}	  
+	@include query-laptop-l {
 
 		$mod_2: 1.1;
 		$mod_1: 1.2;
 		font-size: $mod_1*$mod_1 *1rem;
 		@include fluid-type($min_width, $max_width, $mod_1*$mod_1 *$min_font, $mod_2*$mod_2 *$min_font);
 	}
+	@include query-laptop {
 
-	@include query-500 {
+		$mod_2: 1.05;
+		$mod_1: 1.15;
+		font-size: $mod_1*$mod_1 *1rem;
+		@include fluid-type($min_width, $max_width, $mod_1*$mod_1 *$min_font, $mod_2*$mod_2 *$min_font);
+	}
+	@include query-tablet {
 
 		$mod_2: 1.0;
 		$mod_1: 1.1;
+		font-size: $mod_1*$mod_1 *1rem;
+		@include fluid-type($min_width, $max_width, $mod_1*$mod_1 *$min_font, $mod_2*$mod_2 *$min_font);
+	}
+	@include query-tablet {
+
+		$mod_2: 0.95;
+		$mod_1: 1.05;
+		font-size: $mod_1*$mod_1 *1rem;
+		@include fluid-type($min_width, $max_width, $mod_1*$mod_1 *$min_font, $mod_2*$mod_2 *$min_font);
+	}
+	@include query-mobile-l {
+
+		$mod_2: 0.9;
+		$mod_1: 1.0;
+		font-size: $mod_1*$mod_1 *1rem;
+		@include fluid-type($min_width, $max_width, $mod_1*$mod_1 *$min_font, $mod_2*$mod_2 *$min_font);
+	}
+	@include query-mobile-m {
+
+		$mod_2: 0.85;
+		$mod_1: 0.95;
 		font-size: $mod_1*$mod_1 *1rem;
 		@include fluid-type($min_width, $max_width, $mod_1*$mod_1 *$min_font, $mod_2*$mod_2 *$min_font);
 	}
@@ -164,38 +234,130 @@ h4 {
 	$mod_2: 1.3;
 	$mod_1: 1.4;
   	font-size: $mod_1 *0.1rem;
-  	@include fluid-type($min_width, $max_width, $mod_1 *$min_font, $mod_2 *$min_font);
-
-  	@include query-1600 {
+	@include fluid-type($min_width, $max_width, $mod_1 *$min_font, $mod_2 *$min_font);
+	  
+	@include query-laptop-l {
 
 		$mod_2: 1.2;
 		$mod_1: 1.3;
-  		font-size: $mod_1 *0.1rem;
-  		@include fluid-type($min_width, $max_width, $mod_1 *$min_font, $mod_2 *$min_font);
+		font-size: $mod_1 *0.1rem;
+		@include fluid-type($min_width, $max_width, $mod_1 *$min_font, $mod_2 *$min_font);
 	}
+	@include query-laptop {
 
-	@include query-1100 {
+		$mod_2: 1.15;
+		$mod_1: 1.25;
+		font-size: $mod_1 *0.1rem;
+		@include fluid-type($min_width, $max_width, $mod_1 *$min_font, $mod_2 *$min_font);
+	}
+	@include query-tablet-l {
 
 		$mod_2: 1.1;
 		$mod_1: 1.2;
-  		font-size: $mod_1 *0.1rem;
-  		@include fluid-type($min_width, $max_width, $mod_1 *$min_font, $mod_2 *$min_font);
+		font-size: $mod_1 *0.1rem;
+		@include fluid-type($min_width, $max_width, $mod_1 *$min_font, $mod_2 *$min_font);
 	}
+	@include query-tablet {
 
-	@include query-500 {
+		$mod_2: 1.0;
+		$mod_1: 1.1;
+		font-size: $mod_1 *0.1rem;
+		@include fluid-type($min_width, $max_width, $mod_1 *$min_font, $mod_2 *$min_font);
+	}
+	@include query-mobile-l {
+
+		$mod_2: 0.9;
+		$mod_1: 1.0;
+		font-size: $mod_1 *0.1rem;
+		@include fluid-type($min_width, $max_width, $mod_1 *$min_font, $mod_2 *$min_font);
+	}
+	@include query-mobile-m {
+
+		$mod_2: 0.9;
+		$mod_1: 1.0;
+		font-size: $mod_1 *0.1rem;
+		@include fluid-type($min_width, $max_width, $mod_1 *$min_font, $mod_2 *$min_font);
+	}
+}
+
+h5 { 
+
+	$mod_2: 1.05;
+	$mod_1: 1.15;
+  	font-size: $mod_1 *0.1rem;
+	@include fluid-type($min_width, $max_width, $mod_1 *$min_font, $mod_2 *$min_font);
+	  
+	@include query-laptop {
+
+		$mod_2: 1.0;
+		$mod_1: 1.1;
+		font-size: $mod_1 *0.1rem;
+		@include fluid-type($min_width, $max_width, $mod_1 *$min_font, $mod_2 *$min_font);
+	}
+	@include query-tablet {
+
+		$mod_2: 0.95;
+		$mod_1: 1.05;
+		font-size: $mod_1 *0.1rem;
+		@include fluid-type($min_width, $max_width, $mod_1 *$min_font, $mod_2 *$min_font);
+	}
+	@include query-tablet {
+
+		$mod_2: 0.9;
+		$mod_1: 1;
+		font-size: $mod_1 *0.1rem;
+		@include fluid-type($min_width, $max_width, $mod_1 *$min_font, $mod_2 *$min_font);
+	}
+}
+
+p, span, label {
+
+	$mod_2: 1.05;
+	$mod_1: 1.15;
+  	font-size: $mod_1 *0.1rem;
+	@include fluid-type($min_width, $max_width, $mod_1 *$min_font, $mod_2 *$min_font);
+	  
+	@include query-laptop-l {
 
 		$mod_2: 1.0;
 		$mod_1: 1.1;
   		font-size: $mod_1 *0.1rem;
-  		@include fluid-type($min_width, $max_width, $mod_1 *$min_font, $mod_2 *$min_font);
-  	}
-}
+		@include fluid-type($min_width, $max_width, $mod_1 *$min_font, $mod_2 *$min_font);
+	}
+	@include query-laptop {
 
-p {
+		$mod_2: 0.9;
+		$mod_1: 1.0;
+  		font-size: $mod_1 *0.1rem;
+		@include fluid-type($min_width, $max_width, $mod_1 *$min_font, $mod_2 *$min_font);
+	}
+	@include query-tablet-l {
 
-	@include query-500 {
+		$mod_2: 0.85;
+		$mod_1: 0.95;
+  		font-size: $mod_1 *0.1rem;
+		@include fluid-type($min_width, $max_width, $mod_1 *$min_font, $mod_2 *$min_font);
+	}
+	@include query-tablet {
 
-		font-size: 0.85em;
+		$mod_2: 0.8;
+		$mod_1: 0.9;
+  		font-size: $mod_1 *0.1rem;
+		@include fluid-type($min_width, $max_width, $mod_1 *$min_font, $mod_2 *$min_font);
+	}
+	@include query-mobile-l {
+
+		$mod_2: 0.8;
+		$mod_1: 0.9;
+  		font-size: $mod_1 *0.1rem;
+		@include fluid-type($min_width, $max_width, $mod_1 *$min_font, $mod_2 *$min_font);
+	}
+	@include query-mobile-m {
+
+		$mod_2: 0.8;
+		$mod_1: 0.9;
+  		font-size: $mod_1 *0.1rem;
+		@include fluid-type($min_width, $max_width, $mod_1 *$min_font, $mod_2 *$min_font);
 	}
 }
 
@@ -204,46 +366,56 @@ p {
 html {
     
   	font-family: "";
- 	color: $font-body-color;
+ 	color: $primary-color;
   	letter-spacing: 0.1em;
 }
 
 h1 {
     
   	font-family: "";
-  	color: $font-header-color;
-  	letter-spacing: 0.2em;
-  	line-height: 1.5em;
+  	color: $primary-color;
+	letter-spacing: 0.05em;
+	line-height: auto;
 }
 
 h2 {
     
   	font-family: "";
-  	color: $font-header-color;
-  	letter-spacing: 0.1em;
-  	line-height: 1.5em;
+  	color: $primary-color;
+	letter-spacing: 0.025em;
 }
 
 h3 {
     
   	font-family: "";
-  	color: $font-header-color;
-  	letter-spacing: 0.1em;
-  	line-height: 1.5em;
+	color: $primary-color;
+	letter-spacing: 0.1em;
 }
 
 h4 {
+
+	font-family: "";
+	color: $primary-color;
+	letter-spacing: 0.05em;
+}
+
+h5 {
     
   	font-family: "";
-  	color: $font-header-color;
-  	letter-spacing: 0.1em;
-  	line-height: 1.5em;
+  	color: $primary-color;
+	letter-spacing: 0.05em;
 }
 
 p {
 
   	font-family: "";
-  	color: $font-body-color;
-  	letter-spacing: 0.1em;
-  	line-height: 1.5rem;
+  	color: $primary-color;
+	letter-spacing: 0.1em;
+  	line-height: 1.25rem;
+}
+
+label {
+
+	font-family: "";
+	letter-spacing: 0.01em;
 }
